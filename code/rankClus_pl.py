@@ -8,6 +8,7 @@ from base import clusterReassign, EM, checkNull
 import heapq
 import numpy as np
 import multiprocessing as mp
+import datetime
 
 T = 2
 K = 15
@@ -44,6 +45,7 @@ while rankclus_iter < T:
     author_score_cluster = dict(author_score_cluster)
     confer_score_cluster = dict(confer_score_cluster)
     #end the parallel part
+    rankend = datetime.datetime.now()
     print('start EM')
     Pro_confer_cluster = EM(confer_author, confer_score_cluster,
                             author_score_cluster, cluster, EMT, K)

@@ -1,7 +1,13 @@
+'''
+This is the implemented pipeline of RankClus,
+calling function from the file base.py
+'''
 from base import buildNet, initializeCluster, authorityRank, simpleRank
 from base import clusterReassign, EM, checkNull
 import heapq
 import numpy as np
+import datetime
+
 T = 2
 K = 15
 rankT = 10
@@ -20,7 +26,7 @@ while rankclus_iter < T:
         author_score_cluster[i], confer_score_cluster[
             i], confer_score_in_cluster[i] = authorityRank(
                 author_confer, confer_author, author_author, cluster[i], rankT,
-                alpha)
+                alpha)        
     print('start EM')
     Pro_confer_cluster = EM(confer_author, confer_score_cluster,
                             author_score_cluster, cluster, EMT, K)
