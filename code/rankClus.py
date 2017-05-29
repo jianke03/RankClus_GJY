@@ -1,4 +1,5 @@
 '''
+author : Gao JingYue 1400012965
 This is the implemented pipeline of RankClus,
 calling function from the file base.py
 '''

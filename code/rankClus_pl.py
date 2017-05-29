@@ -1,4 +1,5 @@
 '''
+author : Gao JingYue 1400012965
 This is a parallel version of rankclus
 The ranking part of this algorithm can be parallelized by creating K processes to rank 
 each cluster
