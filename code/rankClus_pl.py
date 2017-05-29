@@ -5,13 +5,13 @@ The ranking part of this algorithm can be parallelized by creating K processes t
 each cluster
 '''
 from base import buildNet, initializeCluster, authorityRank, simpleRank
-from base import clusterReassign, EM, checkNull
+from base import clusterReassign, EM, checkNull,specificInitialize
 import heapq
 import numpy as np
 import multiprocessing as mp
 import datetime
 
-T = 2
+T = 15
 K = 15
 rankT = 10
 alpha = 0.95
@@ -46,7 +46,6 @@ while rankclus_iter < T:
     author_score_cluster = dict(author_score_cluster)
     confer_score_cluster = dict(confer_score_cluster)
     #end the parallel part
-    rankend = datetime.datetime.now()
     print('start EM')
     Pro_confer_cluster = EM(confer_author, confer_score_cluster,
                             author_score_cluster, cluster, EMT, K)

@@ -76,6 +76,39 @@ def initializeCluster(allConferList, K=15):
 
 
 '''
+specificInitialize
+Combining some domain knowledge, we can specify a conference for some clusters 
+to help obtain a better result in less iterations
+'''
+
+
+def specificInitialize(allConferList, K=15):
+    allConferList = list(allConferList)
+    random.shuffle(allConferList)
+    meetRequire = False
+    while not meetRequire:
+        meetRequire = True
+        cluster = defaultdict(list)
+        domainHead = [
+            'FAST', 'MobiCom', 'CRYPTO', 'OSDI', 'VLDB', 'SIGIR', 'STOC',
+            'ACM Multimedia', 'AAAI', 'UbiComp', 'RTSS'
+        ]
+        for i in range(len(domainHead)):
+            cluster[i].append(domainHead[i])
+        for confer in allConferList:
+            if confer in domainHead:
+                continue
+            randid = random.randint(0, K - 1)
+            cluster[randid].append(confer)
+        for i in range(K):
+            if len(cluster[i]) == 0:
+                meetRequire = False
+                print('initialize error and try again!')
+                break
+    return cluster
+
+
+'''
 Simple Rank
 compute the conditional score of authors and conferences in specific conference 
 cluster and within-cluster rank of each conference in the cluster
@@ -244,12 +277,15 @@ def EM(confer_author, confer_score_list, author_score_list, cluster, t=5,
     # using the p(z=k), we get the distribution of every conference over each cluster(research area)       
     return Pro_confer_cluster
 
+
 '''
 calSimi
 This function aims at calculate the similarity between
 one conference and the center of one cluster, to help us
 re-assign the conference to its nearest cluster
 '''
+
+
 def calSimi(a, b):
     sumMul = np.sum(a * b)
     sumA = np.sqrt(np.sum(a * a))
@@ -257,11 +293,14 @@ def calSimi(a, b):
     simi = float(sumMul) / (float(sumA * sumB))
     return simi
 
+
 '''
 clusterReassign
 re-assign every conference to its nearest cluster center according to 
 the similarity between the conference and the center of the cluster
 '''
+
+
 def clusterReassign(cluster, Pro_confer_cluster, K=15):
     center = {}
     for k in range(K):
@@ -284,11 +323,14 @@ def clusterReassign(cluster, Pro_confer_cluster, K=15):
         newcluster[maxid].append(confer)
     return newcluster
 
+
 '''
 checkNull
 This function aims at check K clusters in clustering result are 
 all not null
 '''
+
+
 def checkNull(cluster, K):
     result = False
     for i in range(K):

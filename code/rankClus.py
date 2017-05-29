@@ -4,7 +4,7 @@ This is the implemented pipeline of RankClus,
 calling function from the file base.py
 '''
 from base import buildNet, initializeCluster, authorityRank, simpleRank
-from base import clusterReassign, EM, checkNull
+from base import clusterReassign, EM, checkNull,specificInitialize
 import heapq
 import numpy as np
 import datetime
