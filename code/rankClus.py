@@ -9,7 +9,7 @@ import heapq
 import numpy as np
 import datetime
 
-T = 2
+T = 30
 K = 15
 rankT = 10
 alpha = 0.95

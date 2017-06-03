@@ -11,7 +11,7 @@ import numpy as np
 import multiprocessing as mp
 import datetime
 
-T = 15
+T = 30
 K = 15
 rankT = 10
 alpha = 0.95
